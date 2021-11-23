@@ -80,16 +80,13 @@ public class FakeCode {
 
     public FakeCode(Label label) {
         textfield = label;
-        
-    }
-
-    public static void main(String[] args) {
         try {
-            fake_code = fileToList("C:\\Users\\aoyag\\Desktop\\Codes\\Java\\clicker\\assets\\fakecode.txt");
+            fake_code = fileToList((new File("").getAbsolutePath()).concat("\\assets\\fakecode.txt"));
         } catch (Exception e) {
-            System.out.println("ERROR");
+            System.out.println(e.toString());
         }
         
     }
+
 
 }
