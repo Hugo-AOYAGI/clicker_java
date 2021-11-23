@@ -3,10 +3,6 @@
     "java.project.outputPath": "bin",
     "java.project.referencedLibraries": [
         "lib/**/*.jar",
-<<<<<<< HEAD
-        "c:\\Users\\aoyag\\Desktop\\Codes\\Java\\org.eclipse.swt\\swt.jar"
-=======
         "c:\\Users\\matth\\workspace\\org.eclipse.swt\\swt.jar"
->>>>>>> 7c1536197a7594e8369cc88518a29ebfb3f1e729
     ]
 }

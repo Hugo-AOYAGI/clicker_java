@@ -7,7 +7,6 @@ public class App {
         Display display = new Display();
         Shell shell = new Shell(display);
 
-        shell.pack();
         shell.open();
 
         while (!shell.isDisposed()) {
