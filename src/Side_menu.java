@@ -19,7 +19,7 @@ public class Side_menu {
             }
         }
 
-        while (printablescore.length()<5) {printablescore = "0"+printablescore;}
+        while (printablescore.length()<6) {printablescore = "0"+printablescore;}
 
         if (score>Math.pow(10,18)) {printablescore="????";}
 
@@ -33,14 +33,20 @@ public class Side_menu {
         composite.setBackground(new Color(display,0,0,0)); 
         composite.setSize(400,1080);
         
-        
+
         Label txtscore = new Label(composite, SWT.NONE);
         txtscore.setForeground(display.getSystemColor(SWT.COLOR_GREEN));
         txtscore.setBackground(new Color(display, 0,0,0));
         txtscore.setText(score);
-        txtscore.setSize(300,100);
+        txtscore.setSize(300,90);
         txtscore.setFont(new Font(display,"Consolas", 50, SWT.BOLD));
-        txtscore.setLocation(75,60);
+        txtscore.setLocation(70,50);
+
+        Label imgscore = new Label(composite,SWT.NONE);
+        Image image = new Image(display, (new File("").getAbsolutePath()).concat("\\Sans titre 1.png")); 
+        imgscore.setImage(image);
+        imgscore.setLocation(0,0);
+        imgscore.setSize(400,220);
 
         Button buttonfactory = new Button(composite, SWT.BORDER); 
         buttonfactory.setText("Factories"); 
@@ -74,7 +80,7 @@ public class Side_menu {
     
         Side_menu sidemenu = new Side_menu();
 
-        long score = 1111111L;
+        long score = 25L;
         String printablescore = sidemenu.setscore(score);
         sidemenu.show(display, shell,printablescore);
 
