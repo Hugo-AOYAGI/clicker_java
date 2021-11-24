@@ -32,7 +32,7 @@ public class FakeCode {
         return list;
     }
 
-    public static void addCharToTextField(Label textfield, int speed) {
+    public void addCharToTextField(int speed) {
 
         String curr_line = fake_code.get(line_index);
 
@@ -44,17 +44,17 @@ public class FakeCode {
         if (curr_line.length() == 0) {
 
             line_index++;
-            textfield.setText(textfield.getText() + "\n");
+            this.textfield.setText(this.textfield.getText() + "\n");
 
             if (line_index > max_lines) {
-                String tmp = textfield.getText();
-                textfield.setText(tmp.substring(tmp.indexOf("\n") + 1));
+                String tmp = this.textfield.getText();
+                this.textfield.setText(tmp.substring(tmp.indexOf("\n") + 1));
             }
 
 
         } else {
 
-            textfield.setText(textfield.getText() + curr_line.substring(char_index, Math.min(char_index + speed, curr_line.length())));
+            this.textfield.setText(this.textfield.getText() + curr_line.substring(char_index, Math.min(char_index + speed, curr_line.length())));
             char_index += speed;
 
             if (char_index >= curr_line.length()) {
@@ -63,11 +63,11 @@ public class FakeCode {
                 char_index = 0;
 
                 if (line_index > max_lines) {
-                    String tmp = textfield.getText();
-                    textfield.setText(tmp.substring(tmp.indexOf("\n") + 1));
+                    String tmp = this.textfield.getText();
+                    this.textfield.setText(tmp.substring(tmp.indexOf("\n") + 1));
                 }
 
-                textfield.setText(textfield.getText() + "\n");
+                this.textfield.setText(this.textfield.getText() + "\n");
 
                 
 

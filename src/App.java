@@ -2,11 +2,15 @@
 import java.awt.Color;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.MouseAdapter;
+import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.widgets.*;
 
 
 public class App {
     static Boolean gameStarted = false;
+    static long score = 0L;
+    static int mousemodifier = 1;
     public static void main(String[] args) throws Exception {
         Display display = new Display();
         Shell shell = new Shell(display, SWT.CLOSE | SWT.TITLE | SWT.MIN);
@@ -15,7 +19,6 @@ public class App {
         shell.setLocation(0, 0);
 
         SideMenu sidemenu = new SideMenu();
-        long score = 25L;
         sidemenu.show(display, shell);
         sidemenu.updateScore(score);
 
@@ -24,6 +27,19 @@ public class App {
 
         FakeCode fakecode = new FakeCode();
         fakecode.show(display, shell);
+
+        fakecode.textfield.addMouseListener(new MouseAdapter() {
+            public void mouseUp(MouseEvent e) {
+                if (!gameStarted) {
+                    gameStarted = true;
+                    fakecode.textfield.setText("");
+                }
+                super.mouseUp(e);
+                score += mousemodifier;
+                fakecode.addCharToTextField(mousemodifier);
+                sidemenu.updateScore(score);
+            }
+        });
 
         shell.open();
 
