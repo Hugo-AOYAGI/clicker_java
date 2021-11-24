@@ -9,7 +9,6 @@ import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Rectangle;
-import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.*;
 
 public class VirusPopup {
@@ -60,7 +59,7 @@ public class VirusPopup {
         bodylabel.setFont(font);
     }
 
-    public void setUpGame(int enemies_n) {
+    public void setUpGame() {
         Canvas canvas = new Canvas(pop_shell, SWT.NONE);
         gc = new GC(canvas);
         canvas.setBounds(new Rectangle(0, 120, 600, 420));
@@ -71,7 +70,6 @@ public class VirusPopup {
         
         canvas.addPaintListener(new PaintListener() {
             public void paintControl(PaintEvent e) {
-                // gc = e.gc;
                 gc.drawImage(virus_image, 75, 10);
             }
         });
@@ -117,7 +115,7 @@ public class VirusPopup {
         VirusPopup viruspopup = new VirusPopup(display, shell);
 
         viruspopup.setBodyText("Your system has been affected by a virus. \nYou are losing precious lines of code as you\nread this. \nFight it before the damage is too big !");
-        viruspopup.setUpGame(2);
+        viruspopup.setUpGame();
 
         viruspopup.open(() -> {System.out.println("Test");});
 
