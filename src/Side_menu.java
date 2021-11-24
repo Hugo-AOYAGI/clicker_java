@@ -80,7 +80,7 @@ public class Side_menu {
     
         Side_menu sidemenu = new Side_menu();
 
-        long score = 25L;
+        long score = 25100020000L;
         String printablescore = sidemenu.setscore(score);
         sidemenu.show(display, shell,printablescore);
 
