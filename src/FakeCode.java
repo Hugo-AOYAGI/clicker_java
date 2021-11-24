@@ -1,10 +1,9 @@
 import org.eclipse.swt.*;
+import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.widgets.*;
 import java.util.*;
-import java.nio.file.*;
 import java.io.*;
-import org.eclipse.swt.events.*;
-import org.eclipse.swt.graphics.*;
+import java.nio.file.*;
 
 
 public class FakeCode {
@@ -29,6 +28,7 @@ public class FakeCode {
         while ((st = br.readLine()) != null)
             list.add(st);
 
+        br.close();
         return list;
     }
 
@@ -78,8 +78,21 @@ public class FakeCode {
         
     }
 
-    public FakeCode(Label label) {
-        textfield = label;
+    public void show(Display display, Shell shell) throws Exception {
+
+        textfield = new Label(shell, SWT.NONE);
+        textfield.setBackground(display.getSystemColor(SWT.COLOR_BLACK));
+        textfield.setForeground(display.getSystemColor(SWT.COLOR_GREEN));
+        textfield.setText(Files.readString(Path.of(new File("").getAbsolutePath().concat("\\assets\\console_welcome.txt"))));
+
+        Font font = new Font(display, "Consolas", 12, SWT.NONE);
+        textfield.setFont(font);
+        textfield.setSize(1200, 650);
+        textfield.setLocation(400, 0);
+
+    }
+
+    public FakeCode() {
         try {
             fake_code = fileToList((new File("").getAbsolutePath()).concat("\\assets\\fakecode.txt"));
         } catch (Exception e) {

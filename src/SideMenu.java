@@ -5,8 +5,11 @@ import java.io.*;
 
 
 
-public class Side_menu {
-    public String setscore(long score) {
+public class SideMenu {
+
+    Label txtscore;
+
+    public String getFormattedScore(long score) {
 
         String[] ltaille = {"K","M","G","T","P"};
         String printablescore = Long.toString(score);
@@ -26,74 +29,56 @@ public class Side_menu {
         return printablescore;
     }
 
-    public void show(Display display, Shell shell, String score) {
-        Font font = new Font(display,"Consolas", 30, SWT.BOLD);
+    public void show(Display display, Shell shell) {
+        Font font = new Font(display,"Consolas", 25, SWT.BOLD);
 
         Composite composite = new Composite(shell, SWT.BORDER); 
         composite.setBackground(new Color(display,0,0,0)); 
-        composite.setSize(400,1080);
+        composite.setSize(400,900);
         
 
-        Label txtscore = new Label(composite, SWT.NONE);
+        txtscore = new Label(composite, SWT.NONE);
         txtscore.setForeground(display.getSystemColor(SWT.COLOR_GREEN));
         txtscore.setBackground(new Color(display, 0,0,0));
-        txtscore.setText(score);
         txtscore.setSize(300,90);
-        txtscore.setFont(new Font(display,"Consolas", 50, SWT.BOLD));
+        txtscore.setFont(new Font(display,"Consolas", 40, SWT.BOLD));
         txtscore.setLocation(70,50);
 
-        Label imgscore = new Label(composite,SWT.NONE);
-        Image image = new Image(display, (new File("").getAbsolutePath()).concat("\\Sans titre 1.png")); 
-        imgscore.setImage(image);
-        imgscore.setLocation(0,0);
-        imgscore.setSize(400,220);
+        Label icon = new Label(composite,SWT.NONE);
+        Image image = new Image(display, (new File("").getAbsolutePath()).concat("\\assets\\logo.png")); 
+        icon.setImage(image);
+        icon.setLocation(0,0);
+        icon.setSize(400,220);
 
-        Button buttonfactory = new Button(composite, SWT.BORDER); 
+        Button buttonfactory = new Button(composite, SWT.NONE); 
         buttonfactory.setText("Factories"); 
         buttonfactory.setForeground(display.getSystemColor(SWT.COLOR_GREEN));
         buttonfactory.setBackground(new Color(display, 40,40,40));
         buttonfactory.setFont(font);
-        buttonfactory.setBounds(2, 220, 390, 250); 
+        buttonfactory.setBounds(2, 300, 390, 150); 
 
-        Button buttonclick = new Button(composite, SWT.BORDER); 
+        Button buttonclick = new Button(composite, SWT.NONE); 
         buttonclick.setText("Power ups"); 
         buttonclick.setForeground(display.getSystemColor(SWT.COLOR_GREEN));
         buttonclick.setBackground(new Color(display, 40,40,40));
         buttonclick.setFont(font);
-        buttonclick.setBounds(2, 500 , 390, 250);
+        buttonclick.setBounds(2, 450 , 390, 150);
 
-        Button buttonbonus = new Button(composite, SWT.BORDER); 
+        Button buttonbonus = new Button(composite, SWT.NONE); 
         buttonbonus.setText("Upgrades"); 
         buttonbonus.setForeground(display.getSystemColor(SWT.COLOR_GREEN));
         buttonbonus.setBackground(new Color(display, 40,40,40));
         buttonbonus.setFont(font);
-        buttonbonus.setBounds(2, 780, 390, 250);
+        buttonbonus.setBounds(2, 600, 390, 150);
          
     }
 
-
-    public static void main(String[] args) throws Exception {
-        Display display = new Display();
-        Shell shell = new Shell(display);
-        shell.setText("Menu Example");
-        shell.setSize(300, 200);
-    
-        Side_menu sidemenu = new Side_menu();
-
-        long score = 25L;
-        String printablescore = sidemenu.setscore(score);
-        sidemenu.show(display, shell,printablescore);
-
-        shell.pack(); 
-        shell.open();
-        
-
-        while (!shell.isDisposed()) {
-            if (display.readAndDispatch()) {
-                display.sleep();
-            }
-        }
-
-        display.dispose();
+    public void updateScore(long score) {
+        txtscore.setText(getFormattedScore(score));
     }
+
+    public void updateScore(int score) {
+        txtscore.setText(getFormattedScore((long) score));
+    }
+
 }

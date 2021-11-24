@@ -1,0 +1,22 @@
+
+   
+                .-/+oossssoo+/-.               root@user
+            `:+ssssssssssssssssss+:`           --------------------
+          -+ssssssssssssssssss  ssss+-         OS: Ubuntu on Windows 10 x86_64
+        .ossssssssssssssssss      sssso.       Packages: 517
+       /sssssssssssh             hssssss/      Shell: zsh 5.4.2
+      +sssssssssh                ssssssss+     CPU: Intel i10-8265U (8) @ 1.800GHz
+     /ssssssssh     hh    h      hssssssss/    Memory : 30 GiB / 74 GiB
+    .ssssssss     hssssssssssh     ssssssss.   CPU Usage: 8%
+    +sssshhh      ssssssssssss      sssssss+   Disk (/): 185P / 238P (78%)
+    oss         hssssssssssssssh   hssssssso
+    oss         hssssssssssssssh   hssssssso
+    +sssshhh      ssssssssssss      sssssss+
+    .ssssssss     hssssssssssh     ssssssss.
+     /ssssssssh     hh    h      hssssssss/
+      +sssssssss                 ssssssss+
+       /sssssssssssh             hssssss/
+        .ossssssssssssssssss      sssso.
+          -+sssssssssssssssss   ssss+-
+            `:+ssssssssssssssssss+:`
+                .-/+oossssoo+/-.
