@@ -31,10 +31,10 @@ public class BottomMenu {
         Image image3 = new Image(display, (new File("").getAbsolutePath()).concat("\\assets\\factdev.png")); 
         Image image4 = new Image(display, (new File("").getAbsolutePath()).concat("\\assets\\facttea.png")); 
         Image image5 = new Image(display, (new File("").getAbsolutePath()).concat("\\assets\\factcat.png")); 
-        Image image6 = new Image(display, (new File("").getAbsolutePath()).concat("\\assets\\logo.png")); 
+        Image image6 = new Image(display, (new File("").getAbsolutePath()).concat("\\assets\\factcom.png")); 
         Image image7 = new Image(display, (new File("").getAbsolutePath()).concat("\\assets\\logo.png")); 
         Image image8 = new Image(display, (new File("").getAbsolutePath()).concat("\\assets\\facthac.png")); 
-        Image image9 = new Image(display, (new File("").getAbsolutePath()).concat("\\assets\\logo.png")); 
+        Image image9 = new Image(display, (new File("").getAbsolutePath()).concat("\\assets\\factai.png")); 
         
         Image[] limage = {image1,image2,image3,image4,image5,image6,image7,image8,image9};
         int buttonnb = lmenu.length;
@@ -66,8 +66,8 @@ public class BottomMenu {
         slider.addListener(SWT.Selection,new Listener() {
             public void handleEvent(Event e) {
                 for (int i=0;i<buttonnb;i++) {
-                    lbutton[i].setBounds(200*i-(200*buttonnb-1200)*(slider.getSelection()-1)/(99-scrollsize), 0, 200, 120); 
-                    llabel[i].setLocation(200*i-(200*buttonnb-1200)*(slider.getSelection()-1)/(99-scrollsize)+60,120);
+                    lbutton[i].setBounds(200*i-(200*buttonnb-1180)*(slider.getSelection()-1)/(99-scrollsize), 0, 200, 120); 
+                    llabel[i].setLocation(200*i-(200*buttonnb-1180)*(slider.getSelection()-1)/(99-scrollsize)+60,120);
                 }
             }
         });
