@@ -29,7 +29,7 @@ public class App {
         powerups.show(display, shell);
 
         Integer[] factories_n = {10, 12, 9, 23, 2, 0, 0, 0, 0};
-        String[] factories_names = {"urbutt", "factyou", "factdev", "facttea", "factcat", "logo", "redditor", "facthac", "logo"};
+        String[] factories_names = {"urbutt", "factyou", "factdev", "facttea", "factcat", "factcom", "redditor", "facthac", "factai"};
 
         BottomMenu factories = new BottomMenu(factories_names, factories_n, "x");
         factories.show(display, shell);

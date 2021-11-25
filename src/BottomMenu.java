@@ -84,8 +84,8 @@ public class BottomMenu {
             slider.addListener(SWT.Selection,new Listener() {
                 public void handleEvent(Event e) {
                     for (int i=0;i<item_n.length;i++) {
-                        lbutton[i].setBounds(200*i-(200*item_n.length-1200)*(slider.getSelection()-1)/(99-scrollsize), 0, 200, 120); 
-                        llabel[i].setLocation(200*i-(200*item_n.length-1200)*(slider.getSelection()-1)/(99-scrollsize)+60,120);
+                        lbutton[i].setBounds(200*i-(200*item_n.length-1180)*(slider.getSelection()-1)/(99-scrollsize), 0, 200, 120); 
+                        llabel[i].setLocation(200*i-(200*item_n.length-1180)*(slider.getSelection()-1)/(99-scrollsize)+60,120);
                     }
                 }
             });
