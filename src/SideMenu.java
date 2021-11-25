@@ -8,6 +8,8 @@ import java.io.*;
 public class SideMenu {
 
     Label txtscore;
+    public Button buttonfactory;
+    public Button buttonclick;
 
     public String getFormattedScore(long score) {
 
@@ -50,26 +52,26 @@ public class SideMenu {
         icon.setLocation(0,0);
         icon.setSize(400,220);
 
-        Button buttonfactory = new Button(composite, SWT.NONE); 
+        buttonfactory = new Button(composite, SWT.NONE); 
         buttonfactory.setText("Factories"); 
         buttonfactory.setForeground(display.getSystemColor(SWT.COLOR_GREEN));
         buttonfactory.setBackground(new Color(display, 40,40,40));
         buttonfactory.setFont(font);
         buttonfactory.setBounds(2, 300, 390, 150); 
 
-        Button buttonclick = new Button(composite, SWT.NONE); 
+        buttonclick = new Button(composite, SWT.NONE); 
         buttonclick.setText("Power ups"); 
         buttonclick.setForeground(display.getSystemColor(SWT.COLOR_GREEN));
         buttonclick.setBackground(new Color(display, 40,40,40));
         buttonclick.setFont(font);
         buttonclick.setBounds(2, 450 , 390, 150);
 
-        Button buttonbonus = new Button(composite, SWT.NONE); 
-        buttonbonus.setText("Upgrades"); 
-        buttonbonus.setForeground(display.getSystemColor(SWT.COLOR_GREEN));
-        buttonbonus.setBackground(new Color(display, 40,40,40));
-        buttonbonus.setFont(font);
-        buttonbonus.setBounds(2, 600, 390, 150);
+        // buttonbonus = new Button(composite, SWT.NONE); 
+        // buttonbonus.setText("Achievements"); 
+        // buttonbonus.setForeground(display.getSystemColor(SWT.COLOR_GREEN));
+        // buttonbonus.setBackground(new Color(display, 40,40,40));
+        // buttonbonus.setFont(font);
+        // buttonbonus.setBounds(2, 600, 390, 150);
          
     }
 
