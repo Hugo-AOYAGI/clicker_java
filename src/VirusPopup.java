@@ -117,6 +117,8 @@ public class VirusPopup {
         viruspopup.setBodyText("Your system has been affected by a virus. \nYou are losing precious lines of code as you\nread this. \nFight it before the damage is too big !");
         viruspopup.setUpGame();
 
+        shell.open();
+
         viruspopup.open(() -> {System.out.println("Test");});
 
     }
