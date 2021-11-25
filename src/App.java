@@ -22,8 +22,30 @@ public class App {
         sidemenu.show(display, shell);
         sidemenu.updateScore(score);
 
-        BottomMenu bottommenu = new BottomMenu();
-        bottommenu.show(display, shell);
+        Integer[] power_up_n = {3, 4, 4};
+        String[] power_up_names = {"p1cursor", "p10fact", "antivirus"};
+
+        BottomMenu powerups = new BottomMenu(power_up_names, power_up_n, "lvl");
+        powerups.show(display, shell);
+
+        Integer[] factories_n = {10, 12, 9, 23, 2, 0, 0, 0, 0};
+        String[] factories_names = {"urbutt", "factyou", "factdev", "facttea", "factcat", "factcom", "redditor", "facthac", "factai"};
+
+        BottomMenu factories = new BottomMenu(factories_names, factories_n, "x");
+        factories.show(display, shell);
+
+        sidemenu.buttonfactory.addListener(SWT.Selection, new Listener() {
+            public void handleEvent(Event e) {
+                powerups.setVisible(false);
+            }
+        });
+
+        sidemenu.buttonclick.addListener(SWT.Selection, new Listener() {
+            public void handleEvent(Event e) {
+                powerups.setVisible(true);
+            }
+        });
+      
 
         FakeCode fakecode = new FakeCode();
         fakecode.show(display, shell);
