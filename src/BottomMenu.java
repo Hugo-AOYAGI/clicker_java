@@ -38,6 +38,10 @@ public class BottomMenu {
         callbacks = _callbacks;
     }
 
+    public void updateLabel(int n, int index) {
+        llabel[index].setText(n_prefix + " "  + n); 
+    }
+
     
 
     public void show(Display display, Shell shell) {
