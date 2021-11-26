@@ -13,7 +13,10 @@ public class BottomMenu {
 
     public ArrayList<Image> item_images = new ArrayList<Image>();
     public String[] item_images_names;
+    public String[] descriptions;
+    public String[] names;
     public Integer[] item_n;
+    public Integer[] prices;
     public String n_prefix;
     public Slider slider;
 
@@ -23,12 +26,14 @@ public class BottomMenu {
     public Button[] lbutton;
     public Label[] llabel;
 
-    public BottomMenu(String[] _item_images_names, Integer[] _item_n, String _n_prefix) {
+    public BottomMenu(String[] _item_images_names, Integer[] _item_n, String _n_prefix, Integer[] _prices, String[] _descriptions,String[] _names) {
         
         item_images_names = _item_images_names;
         item_n = _item_n;
         n_prefix = _n_prefix;
-
+        prices = _prices;
+        descriptions = _descriptions;
+        names = _names;
     }
 
     
@@ -59,6 +64,16 @@ public class BottomMenu {
             lbutton[i].setBackground(new Color(display, 40,40,40));
             lbutton[i].setFont(font);
             lbutton[i].setBounds(200*i, 0, 200, 120); 
+            String name = names[i];
+            int price = prices[i];
+            String description = descriptions[i];
+            lbutton[i].addListener(SWT.Selection, new Listener() {
+                public void handleEvent(Event e) {
+                    Shopmenu shopmenu = new Shopmenu(display, shell, description, price , name);
+                    shopmenu.open(() -> {});
+                }
+            });
+
 
             llabel[i] = new Label(composite,SWT.None);
             llabel[i].setText(n_prefix + " "  + item_n[i]); 

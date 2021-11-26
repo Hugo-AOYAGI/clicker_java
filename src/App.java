@@ -24,14 +24,20 @@ public class App {
 
         Integer[] power_up_n = {3, 4, 4};
         String[] power_up_names = {"p1cursor", "p10fact", "antivirus"};
+        Integer[] power_up_prices = {1,10,100};
+        String[] power_up_descriptions = {"a", "b", "c"};
+        String[] power_up_rnames = {"a", "b", "c"};
 
-        BottomMenu powerups = new BottomMenu(power_up_names, power_up_n, "lvl");
+        BottomMenu powerups = new BottomMenu(power_up_names, power_up_n, "lvl", power_up_prices,power_up_descriptions,power_up_rnames );
         powerups.show(display, shell);
 
         Integer[] factories_n = {10, 12, 9, 23, 2, 0, 0, 0, 0};
         String[] factories_names = {"urbutt", "factyou", "factdev", "facttea", "factcat", "factcom", "redditor", "facthac", "factai"};
+        Integer[] factories_prices = {1,10,100,1000,10000,1000000,10000,10000,100000};
+        String[] factories_rnames = {"a", "b", "c", "d", "e", "f", "g", "h", "i"};
+        String[] factories_descriptions = {"a", "b", "c", "d", "e", "f", "g", "h", "i"};
 
-        BottomMenu factories = new BottomMenu(factories_names, factories_n, "x");
+        BottomMenu factories = new BottomMenu(factories_names, factories_n, "x",factories_prices,factories_descriptions,factories_rnames);
         factories.show(display, shell);
 
         sidemenu.buttonfactory.addListener(SWT.Selection, new Listener() {

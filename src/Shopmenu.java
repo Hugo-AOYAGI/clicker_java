@@ -43,7 +43,15 @@ public class Shopmenu {
         bodylabel.setForeground(display.getSystemColor(SWT.COLOR_GREEN));
         bodylabel.setBackground(display.getSystemColor(SWT.COLOR_BLACK));
         bodylabel.setText(description);
-        bodylabel.setSize(600, 120);
+        bodylabel.setSize(600, 60);
+        bodylabel.setFont(font);
+
+        Label pricelabel = new Label(pop_shell, SWT.NONE);
+        bodylabel.setForeground(display.getSystemColor(SWT.COLOR_GREEN));
+        bodylabel.setBackground(display.getSystemColor(SWT.COLOR_BLACK));
+        bodylabel.setText("Price : "+price);
+        bodylabel.setSize(600, 60);
+        bodylabel.setLocation(0,200);
         bodylabel.setFont(font);
 
         Button buttonbuy = new Button(pop_shell, 0);
@@ -52,13 +60,23 @@ public class Shopmenu {
         buttonbuy.setText("BUY");
         buttonbuy.setBounds(0, 353 ,291, 200);
         buttonbuy.setFont(font);
+        buttonbuy.addListener(SWT.Selection, new Listener() {
+            public void handleEvent(Event e) {
+                App.mousemodifier++;
+            }
+        });
+
         Button buttoncancel = new Button(pop_shell, 0);
         buttoncancel.setForeground(display.getSystemColor(SWT.COLOR_GREEN));
         buttoncancel.setBackground(new Color(display, 40,40,40));
         buttoncancel.setText("CANCEL");
         buttoncancel.setBounds(291, 353, 291, 200);
         buttoncancel.setFont(font);
-
+        buttoncancel.addListener(SWT.Selection, new Listener() {
+            public void handleEvent(Event e) {
+                pop_shell.close();
+            }
+        });
     }
 
 
