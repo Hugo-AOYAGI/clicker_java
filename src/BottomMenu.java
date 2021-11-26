@@ -15,6 +15,7 @@ public class BottomMenu {
     public String[] item_images_names;
     public String[] descriptions;
     public String[] names;
+    public Runnable[] callbacks;
     public Integer[] item_n;
     public Integer[] prices;
     public String n_prefix;
@@ -26,7 +27,7 @@ public class BottomMenu {
     public Button[] lbutton;
     public Label[] llabel;
 
-    public BottomMenu(String[] _item_images_names, Integer[] _item_n, String _n_prefix, Integer[] _prices, String[] _descriptions,String[] _names) {
+    public BottomMenu(String[] _item_images_names, Integer[] _item_n, String _n_prefix, Integer[] _prices, String[] _descriptions,String[] _names, Runnable[] _callbacks) {
         
         item_images_names = _item_images_names;
         item_n = _item_n;
@@ -34,6 +35,7 @@ public class BottomMenu {
         prices = _prices;
         descriptions = _descriptions;
         names = _names;
+        callbacks = _callbacks;
     }
 
     
@@ -67,9 +69,10 @@ public class BottomMenu {
             String name = names[i];
             int price = prices[i];
             String description = descriptions[i];
+            Runnable callback = callbacks[i];
             lbutton[i].addListener(SWT.Selection, new Listener() {
                 public void handleEvent(Event e) {
-                    Shopmenu shopmenu = new Shopmenu(display, shell, description, price , name);
+                    Shopmenu shopmenu = new Shopmenu(display, shell, description, price , name, callback);
                     shopmenu.open(() -> {});
                 }
             });

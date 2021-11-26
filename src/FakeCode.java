@@ -33,7 +33,19 @@ public class FakeCode {
     }
 
     public void addCharToTextField(int speed) {
+        String curr_line = fake_code.get(line_index);
+        Integer curr_char = char_index;
+        if (char_index + speed >= curr_line.length()) {
+            writeChars(curr_line.length() - char_index);
+            addCharToTextField(speed - (curr_line.length() - curr_char));
+        } else {
+            writeChars(speed);
+        }
 
+    }
+
+    public void writeChars(int speed) {
+        
         String curr_line = fake_code.get(line_index);
 
         if (line_index == fake_code.size() - 1) {
@@ -53,8 +65,7 @@ public class FakeCode {
 
 
         } else {
-
-            this.textfield.setText(this.textfield.getText() + curr_line.substring(char_index, Math.min(char_index + speed, curr_line.length())));
+            this.textfield.setText(this.textfield.getText() + curr_line.substring(char_index, char_index + speed));
             char_index += speed;
 
             if (char_index >= curr_line.length()) {
