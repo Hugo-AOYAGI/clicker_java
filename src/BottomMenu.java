@@ -1,6 +1,8 @@
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.List;
+
 
 import org.eclipse.swt.*; 
 import org.eclipse.swt.graphics.*;
@@ -16,12 +18,12 @@ public class BottomMenu {
     public String[] descriptions;
     public String[] names;
     public Runnable[] callbacks;
-    public Integer[] item_n;
+    public List<Integer> item_n;
     public Integer[] prices;
     public String n_prefix;
     public Slider slider;
 
-    public double virus_chances = 0.3;
+    public static double virus_chances = 0.3;
 
     public Composite composite;
     public Boolean isVisible = true;
@@ -29,7 +31,7 @@ public class BottomMenu {
     public Button[] lbutton;
     public Label[] llabel;
 
-    public BottomMenu(String[] _item_images_names, Integer[] _item_n, String _n_prefix, Integer[] _prices, String[] _descriptions,String[] _names, Runnable[] _callbacks) {
+    public BottomMenu(String[] _item_images_names, List<Integer> _item_n, String _n_prefix, Integer[] _prices, String[] _descriptions,String[] _names, Runnable[] _callbacks) {
         
         item_images_names = _item_images_names;
         item_n = _item_n;
@@ -60,12 +62,12 @@ public class BottomMenu {
             item_images.add(tmp);
         } 
 
-        lbutton = new Button[item_n.length];
-        llabel = new Label[item_n.length];
+        lbutton = new Button[item_n.size()];
+        llabel = new Label[item_n.size()];
         
         
 
-        for (int i=0;i<item_n.length;i++) {
+        for (int i=0;i<item_n.size();i++) {
             lbutton[i] = new Button(composite, SWT.BORDER); 
             lbutton[i].setImage(item_images.get(i));
             lbutton[i].setForeground(display.getSystemColor(SWT.COLOR_GREEN));
@@ -91,7 +93,7 @@ public class BottomMenu {
 
 
             llabel[i] = new Label(composite,SWT.None);
-            llabel[i].setText(n_prefix + " "  + item_n[i]); 
+            llabel[i].setText(n_prefix + " "  + item_n.get(i)); 
             llabel[i].setFont(font);
             llabel[i].setForeground(display.getSystemColor(SWT.COLOR_GREEN));
             llabel[i].setBackground(new Color(display, 0,0,0));
@@ -100,7 +102,7 @@ public class BottomMenu {
 
         }
 
-        if (item_n.length > 6) {
+        if (item_n.size() > 6) {
             slider = new Slider(composite, SWT.BORDER);
             slider.setSize(1180,30);
             slider.setBackground(new Color(display,20,20,20));
@@ -108,14 +110,14 @@ public class BottomMenu {
             slider.setMinimum(1);
             slider.setMaximum(100);
     
-            int scrollsize =(int) 100*1200/(200*item_n.length);
+            int scrollsize =(int) 100*1200/(200*item_n.size());
             slider.setThumb(scrollsize);
     
             slider.addListener(SWT.Selection,new Listener() {
                 public void handleEvent(Event e) {
-                    for (int i=0;i<item_n.length;i++) {
-                        lbutton[i].setBounds(200*i-(200*item_n.length-1180)*(slider.getSelection()-1)/(99-scrollsize), 0, 200, 120); 
-                        llabel[i].setLocation(200*i-(200*item_n.length-1180)*(slider.getSelection()-1)/(99-scrollsize)+60,120);
+                    for (int i=0;i<item_n.size();i++) {
+                        lbutton[i].setBounds(200*i-(200*item_n.size()-1180)*(slider.getSelection()-1)/(99-scrollsize), 0, 200, 120); 
+                        llabel[i].setLocation(200*i-(200*item_n.size()-1180)*(slider.getSelection()-1)/(99-scrollsize)+60,120);
                     }
                 }
             });
@@ -129,7 +131,7 @@ public class BottomMenu {
     public void setVisible(Boolean bool) {
         composite.setVisible(bool);
 
-        for (int i=0;i<item_n.length;i++) {
+        for (int i=0;i<item_n.size();i++) {
             lbutton[i].setVisible(bool); 
             llabel[i].setVisible(bool); 
         }

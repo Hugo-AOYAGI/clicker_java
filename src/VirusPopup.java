@@ -39,7 +39,8 @@ public class VirusPopup {
             public void handleEvent(Event e) {
                 if (damage != 9) {
                     e.doit = false;
-                }                
+                }
+                damage = 0; 
             }
         });
 

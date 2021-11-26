@@ -1,5 +1,15 @@
 
 import java.awt.Color;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.eclipse.swt.*;
 import org.eclipse.swt.events.MouseAdapter;
@@ -18,8 +28,12 @@ public class App {
     static FakeCode fakecode;
     static BottomMenu factories;
     static BottomMenu powerups;
+    static boolean virusActive = false;
 
-    static Integer[] factories_n = {0, 0, 0, 0, 0, 0, 0, 0, 0};
+    
+
+    static List<Integer> factories_n = Arrays.asList(0, 0, 0, 0, 0, 0, 0, 0, 0);
+    static Integer[] factories_prod = {0, 1, 2, 10, 30, 100, 500, 1000, 10000};
 
     static String[] factories_names = {"urbutt", "factyou", "factdev", "facttea", "factcat", "factcom", "redditor", "facthac", "factai"};
     static Integer[] factories_prices = {10,100,500,1000,2000,10000,100000,100000000,100000000};
@@ -27,7 +41,7 @@ public class App {
     static String[] factories_descriptions = {"Stop using your butt to write code.\nProduces 0 chars per seconds.", "A clone of you that writes code as\nfast as you do (slowly).\nProduces 1 char per seconds.", "The dev is more efficient.\nProduces 2 chars per seconds.", "A Team of 3 devs, but writes more \ncode than the sum of its parts.\nProduces 10 chars per seconds.", "My cat is better than a team of\ndevs.\nProduces 30 chars per seconds.", "The software company produces 100\nchars per seconds.", "The redditor just copies code from\nsubreddits and stackoverflow.\nProduces 500 chars per seconds.", "The master hacker produces 1000\nchars per seconds.", "The AI is taking all the devs jobs\nthanks to its magic SSD.\nProduces 10000 chars per seconds."};
     static Runnable[] factories_callbacks = {() -> {addFactory(0, 10, 0);}, () -> {addFactory(1, 100, 1);}, () -> {addFactory(2, 500, 2);}, () -> {addFactory(8, 1000, 3);}, () -> {addFactory(10, 2000, 4);}, () -> {addFactory(100, 10000, 5);}, () -> {addFactory(500, 100000, 6);}, () -> {addFactory(1000, 100000000, 7);}, () -> {addFactory(100000, 1000000000, 8);}};
 
-    static Integer[] power_up_n = {0, 0, 0};
+    static List<Integer> power_up_n = Arrays.asList(0, 0, 0);
      
     static String[] power_up_names = {"p1cursor", "p10fact", "antivirus"};
     static Integer[] power_up_prices = {100,1000,1000};
@@ -43,8 +57,8 @@ public class App {
             mousemodifier++;
             score -= 100;
             sidemenu.updateScore(score);
-            power_up_n[0]++;
-            powerups.updateLabel(power_up_n[0], 0);
+            power_up_n.set(0, power_up_n.get(0) + 1);
+            powerups.updateLabel(power_up_n.get(0), 0);
         } else {
             MessageBox message_box = new MessageBox(shell, SWT.CLOSE | SWT.ICON_WARNING);
             message_box.setText("Shop");
@@ -54,13 +68,12 @@ public class App {
     } 
 
     public static void addAntiVirus() {
-        if (100 <= score) {
-            powerups.virus_chances *= 0.9;
-            factories.virus_chances *= 0.9;
+        if (1000 <= score) {
+            BottomMenu.virus_chances *= 0.9;
             score -= 1000;
             sidemenu.updateScore(score);
-            power_up_n[2]++;
-            powerups.updateLabel(power_up_n[2], 2);
+            power_up_n.set(2, power_up_n.get(2) + 1);
+            powerups.updateLabel(power_up_n.get(2), 2);
         } else {
             MessageBox message_box = new MessageBox(shell, SWT.CLOSE | SWT.ICON_WARNING);
             message_box.setText("Shop");
@@ -71,12 +84,12 @@ public class App {
 
 
     public static void factoriesModify() {
-        if (100 <= score) {
+        if (1000 <= score) {
             factories_modifier += 0.1;
             score -= 1000;
             sidemenu.updateScore(score);
-            power_up_n[1]++;
-            powerups.updateLabel(power_up_n[1], 1);
+            power_up_n.set(1, power_up_n.get(1) + 1);
+            powerups.updateLabel(power_up_n.get(1), 1);
         } else {
             MessageBox message_box = new MessageBox(shell, SWT.CLOSE | SWT.ICON_WARNING);
             message_box.setText("Shop");
@@ -91,8 +104,8 @@ public class App {
             factories_cps += cps;
             score -= price;
             sidemenu.updateScore(score);
-            factories_n[index]++;
-            factories.updateLabel(factories_n[index], index);
+            factories_n.set(index, factories_n.get(index) + 1);
+            factories.updateLabel(factories_n.get(index), index);
         } else {
             MessageBox message_box = new MessageBox(shell, SWT.CLOSE | SWT.ICON_WARNING);
             message_box.setText("Shop");
@@ -142,6 +155,35 @@ public class App {
     }
 
     public static void main(String[] args) throws Exception {
+
+        // Reading saved data
+        ArrayList<String> user_data = new ArrayList<String>();
+        File file = new File((new File("").getAbsolutePath()).concat("\\save.txt"));
+        BufferedReader br = new BufferedReader(new FileReader(file));
+
+        String st;
+        while ((st = br.readLine()) != null)
+        
+            user_data.add(st);
+
+
+        factories_n = Arrays.asList(user_data.get(0).trim().split(",")).stream().map(i -> Integer.parseInt(i)).collect(Collectors.toList());
+        power_up_n = Arrays.asList(user_data.get(1).trim().split(",")).stream().map(i -> Integer.parseInt(i)).collect(Collectors.toList());
+        score = Integer.parseInt(user_data.get(2).trim());
+        mousemodifier = Integer.parseInt(user_data.get(3).trim());
+        factories_modifier = Double.parseDouble(user_data.get(4).trim());
+        BottomMenu.virus_chances = Double.parseDouble(user_data.get(5).trim());
+        
+        for (int i = 0; i<factories_n.size(); i++) {
+            factories_cps += factories_prod[i]*factories_n.get(i);
+        }
+
+
+        br.close();
+
+        
+        
+
         Display display = new Display();
         shell = new Shell(display, SWT.CLOSE | SWT.TITLE | SWT.MIN);
         shell.setText("dev_clicker");
@@ -160,6 +202,8 @@ public class App {
       
         factories = new BottomMenu(factories_names, factories_n, "x",factories_prices,factories_descriptions,factories_rnames, factories_callbacks);
         factories.show(display, shell);
+
+        
 
         sidemenu.buttonfactory.addListener(SWT.Selection, new Listener() {
             public void handleEvent(Event e) {
@@ -191,6 +235,16 @@ public class App {
         });
 
         factoriesLoop();
+
+        shell.addListener(SWT.Close, new Listener() {
+            public void handleEvent(Event e) {
+                try {
+                    Files.writeString(Path.of("save.txt"), (String.join(",", Arrays.asList(factories_n).stream().map(i -> i.toString()).collect(Collectors.toList()) ) + "\n" +String.join(",", Arrays.asList(power_up_n).stream().map(i -> i.toString()).collect(Collectors.toList()) ) + "\n" + score + "\n" + mousemodifier + "\n" + factories_modifier + "\n" + BottomMenu.virus_chances).replace("[", "").replace("]", "").replace(" ", ""));
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+            }
+        });
 
         shell.open();
 
