@@ -250,6 +250,7 @@ public class App {
         });
 
         shell.open();
+        
         class Play extends Thread  {
             public Play() {
                 super();
