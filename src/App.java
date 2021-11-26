@@ -7,6 +7,9 @@ import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.widgets.*;
 
 
+import javazoom.jl.player.*;
+import java.io.FileInputStream;
+
 public class App {
     static Boolean gameStarted = false;
     static long score = 0L;
@@ -70,6 +73,31 @@ public class App {
         });
 
         shell.open();
+        class Play extends Thread  {
+            public Play() {
+                super();
+            }
+            public void run() {
+                try {    
+                    Music music = new Music();
+                    music.playMP3.play();
+                    while (!shell.isDisposed()) {
+                        if (music.playMP3.isComplete()) {
+                            music = new Music();
+                            music.playMP3.play();
+                        }
+                        
+                    }
+                     music.playMP3.close();
+                } catch (Exception e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+
+            }
+        }
+        Play playmusic = new Play();
+        playmusic.start();
 
         while (!shell.isDisposed()) {
             if (display.readAndDispatch()) {
