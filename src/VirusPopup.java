@@ -35,6 +35,14 @@ public class VirusPopup {
         pop_shell.setText("Virus Detected");
         pop_shell.setBackground(display.getSystemColor(SWT.COLOR_BLACK));
 
+        pop_shell.addListener(SWT.Close, new Listener() {
+            public void handleEvent(Event e) {
+                if (damage != 9) {
+                    e.doit = false;
+                }                
+            }
+        });
+
         Monitor monitor = display.getPrimaryMonitor();
         Rectangle rect;
         if (monitor != null) {
@@ -78,6 +86,7 @@ public class VirusPopup {
             public void mouseUp(MouseEvent e) {
                 if (damage == 9) {
                     pop_shell.close();
+                    pop_shell.dispose();
                 } else {
                     pop_shell.setLocation((int) (Math.random()*(disp_width - 600)), (int) (Math.random()*(disp_height - 600)));
                     damage++;

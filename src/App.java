@@ -53,6 +53,23 @@ public class App {
         }
     } 
 
+    public static void addAntiVirus() {
+        if (100 <= score) {
+            powerups.virus_chances *= 0.9;
+            factories.virus_chances *= 0.9;
+            score -= 1000;
+            sidemenu.updateScore(score);
+            power_up_n[2]++;
+            powerups.updateLabel(power_up_n[2], 2);
+        } else {
+            MessageBox message_box = new MessageBox(shell, SWT.CLOSE | SWT.ICON_WARNING);
+            message_box.setText("Shop");
+            message_box.setMessage("You do not have enough lines of code to buy this !");
+            message_box.open();
+        }
+    } 
+
+
     public static void factoriesModify() {
         if (100 <= score) {
             factories_modifier += 0.1;
