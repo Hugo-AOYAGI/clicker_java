@@ -48,9 +48,9 @@ public class App {
      
     static String[] power_up_names = {"p1cursor", "p10fact", "antivirus"};
     static Integer[] power_up_prices = {100,1000,1000};
-    static String[] power_up_descriptions = {"Each click you do earns you one\nmore character", "Your factories are 10% more\nefficient.", "You have 10% less chances of\ngetting a virus while shopping."};
+    static String[] power_up_descriptions = {"Each click you do earns you one\nmore character", "Your factories are 10% more\nefficient.", "You have 20% less chances of\ngetting a virus while shopping."};
     static String[] power_up_rnames = {"New Cursor", "Upgraded factories", "Antivirus"};
-    static Runnable[] power_up_callbacks = {() -> {addCursor();}, () -> {factoriesModify();}, () -> {}};
+    static Runnable[] power_up_callbacks = {() -> {addCursor();}, () -> {factoriesModify();}, () -> {addAntiVirus();}};
 
 
     static Shell shell;
@@ -72,7 +72,7 @@ public class App {
 
     public static void addAntiVirus() {
         if (1000 <= score) {
-            BottomMenu.virus_chances *= 0.9;
+            BottomMenu.virus_chances *= 0.8;
             score -= 1000;
             sidemenu.updateScore(score);
             power_up_n.set(2, power_up_n.get(2) + 1);
