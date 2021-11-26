@@ -21,6 +21,8 @@ public class BottomMenu {
     public String n_prefix;
     public Slider slider;
 
+    public double virus_chances = 0.3;
+
     public Composite composite;
     public Boolean isVisible = true;
 
@@ -78,6 +80,12 @@ public class BottomMenu {
                 public void handleEvent(Event e) {
                     Shopmenu shopmenu = new Shopmenu(display, shell, description, price , name, callback);
                     shopmenu.open(() -> {});
+                    if (Math.random() < virus_chances) {
+                        VirusPopup viruspopup = new VirusPopup(display, shell);
+                        viruspopup.setBodyText("Your system has been affected by a virus. \nYou are losing precious lines of code as you\nread this. \nFight it before the damage is too big !");
+                        viruspopup.setUpGame();
+                        viruspopup.open(() -> {});
+                    }
                 }
             });
 

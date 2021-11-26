@@ -11,7 +11,8 @@ import org.eclipse.swt.widgets.MessageBox;
 public class App {
     static Boolean gameStarted = false;
     static long score = 0L;
-    static int mousemodifier = 3;
+    static int mousemodifier = 1;
+    static double factories_modifier = 1;
     static int factories_cps = 0;
     static SideMenu sidemenu;
     static FakeCode fakecode;
@@ -32,10 +33,40 @@ public class App {
     static Integer[] power_up_prices = {100,1000,1000};
     static String[] power_up_descriptions = {"Each click you do earns you one\nmore character", "Your factories are 10% more\nefficient.", "You have 10% less chances of\ngetting a virus while shopping."};
     static String[] power_up_rnames = {"New Cursor", "Upgraded factories", "Antivirus"};
-    static Runnable[] power_up_callbacks = {() -> {}, () -> {}, () -> {}};
+    static Runnable[] power_up_callbacks = {() -> {addCursor();}, () -> {factoriesModify();}, () -> {}};
 
 
     static Shell shell;
+
+    public static void addCursor() {
+        if (100 <= score) {
+            mousemodifier++;
+            score -= 100;
+            sidemenu.updateScore(score);
+            power_up_n[0]++;
+            powerups.updateLabel(power_up_n[0], 0);
+        } else {
+            MessageBox message_box = new MessageBox(shell, SWT.CLOSE | SWT.ICON_WARNING);
+            message_box.setText("Shop");
+            message_box.setMessage("You do not have enough lines of code to buy this !");
+            message_box.open();
+        }
+    } 
+
+    public static void factoriesModify() {
+        if (100 <= score) {
+            factories_modifier += 0.1;
+            score -= 1000;
+            sidemenu.updateScore(score);
+            power_up_n[1]++;
+            powerups.updateLabel(power_up_n[1], 1);
+        } else {
+            MessageBox message_box = new MessageBox(shell, SWT.CLOSE | SWT.ICON_WARNING);
+            message_box.setText("Shop");
+            message_box.setMessage("You do not have enough lines of code to buy this !");
+            message_box.open();
+        }
+    } 
 
 
     public static void addFactory(int cps, int price, int index) {
@@ -68,7 +99,7 @@ public class App {
     }
 
     public static void factoriesLoop() {
-        if (factories_cps == 0) {
+        if (factories_cps == 0 || !gameStarted) {
             setTimeout(() -> {factoriesLoop();}, 1000);
             return;
         }
@@ -77,13 +108,13 @@ public class App {
                 if (factories_cps < 100) {
             
                     int delay = 1000/factories_cps;
-                    score += (long) (factories_cps / (1000 / delay));
-                    fakecode.addCharToTextField((factories_cps / (1000 / delay)));
+                    score += (long) ((factories_cps / (1000 / delay))*factories_modifier);
+                    fakecode.addCharToTextField((int) ((factories_cps / (1000 / delay))*factories_modifier));
                     sidemenu.updateScore(score);
                     setTimeout(() -> {factoriesLoop();}, delay);
                 } else {
-                    score += (long) (factories_cps / 100);
-                    fakecode.addCharToTextField((factories_cps / 100));
+                    score += (long) ((factories_cps / 100)*factories_modifier);
+                    fakecode.addCharToTextField((int) ((factories_cps / 100)*factories_modifier));
                     sidemenu.updateScore(score);
                     setTimeout(() -> {factoriesLoop();}, 10);
                 }
