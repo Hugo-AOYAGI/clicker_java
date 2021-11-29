@@ -1,5 +1,4 @@
 
-import java.io.*;
 
 import org.eclipse.swt.*; 
 import org.eclipse.swt.graphics.*; 

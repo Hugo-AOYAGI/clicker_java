@@ -1,8 +1,8 @@
 
-import java.awt.Color;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -17,17 +17,13 @@ import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.widgets.*;
 import org.eclipse.swt.widgets.MessageBox;
 
-
-import javazoom.jl.player.*;
-import java.io.FileInputStream;
-
 public class App {
     static Boolean gameStarted = false;
-    static long score = 0L;
+    public static long score = 0L;
     static int mousemodifier = 1;
     static double factories_modifier = 1;
     static int factories_cps = 0;
-    static SideMenu sidemenu;
+    public static SideMenu sidemenu;
     static FakeCode fakecode;
     static BottomMenu factories;
     static BottomMenu powerups;
@@ -160,31 +156,45 @@ public class App {
     public static void main(String[] args) throws Exception {
 
         // Reading saved data
-        ArrayList<String> user_data = new ArrayList<String>();
-        File file = new File((new File("").getAbsolutePath()).concat("\\save.txt"));
-        BufferedReader br = new BufferedReader(new FileReader(file));
+        try {
 
-        String st;
-        while ((st = br.readLine()) != null)
-        
-            user_data.add(st);
+            ArrayList<String> user_data = new ArrayList<String>();
+            File file = new File((new File("").getAbsolutePath()).concat("\\save.txt"));
+            BufferedReader br = new BufferedReader(new FileReader(file));
+
+            String st;
+            while ((st = br.readLine()) != null)
+            
+                user_data.add(st);
 
 
-        factories_n = Arrays.asList(user_data.get(0).trim().split(",")).stream().map(i -> Integer.parseInt(i)).collect(Collectors.toList());
-        power_up_n = Arrays.asList(user_data.get(1).trim().split(",")).stream().map(i -> Integer.parseInt(i)).collect(Collectors.toList());
-        score = Integer.parseInt(user_data.get(2).trim());
-        mousemodifier = Integer.parseInt(user_data.get(3).trim());
-        factories_modifier = Double.parseDouble(user_data.get(4).trim());
-        BottomMenu.virus_chances = Double.parseDouble(user_data.get(5).trim());
-        
-        for (int i = 0; i<factories_n.size(); i++) {
-            factories_cps += factories_prod[i]*factories_n.get(i);
+            factories_n = Arrays.asList(user_data.get(0).trim().split(",")).stream().map(i -> Integer.parseInt(i)).collect(Collectors.toList());
+            power_up_n = Arrays.asList(user_data.get(1).trim().split(",")).stream().map(i -> Integer.parseInt(i)).collect(Collectors.toList());
+            score = Integer.parseInt(user_data.get(2).trim());
+            mousemodifier = Integer.parseInt(user_data.get(3).trim());
+            factories_modifier = Double.parseDouble(user_data.get(4).trim());
+            BottomMenu.virus_chances = Double.parseDouble(user_data.get(5).trim());
+            
+            for (int i = 0; i<factories_n.size(); i++) {
+                factories_cps += factories_prod[i]*factories_n.get(i);
+            }
+
+
+            br.close();
+
+        } catch ( Exception e) {
+
+            try {
+                File txtfile = new File((new File("").getAbsolutePath()).concat("\\save.txt"));
+                FileWriter writer = new FileWriter((new File("").getAbsolutePath()).concat("\\save.txt"));
+                writer.write("0,0,0,0,0,0,0,0,0\n0,0,0\n0\n1\n1.0\n0.3");
+                writer.close();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+
         }
-
-
-        br.close();
-
-        
+                
         
 
         Display display = new Display();
@@ -268,7 +278,6 @@ public class App {
                     }
                      music.playMP3.close();
                 } catch (Exception e) {
-                    // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
 
