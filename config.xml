@@ -2,7 +2,7 @@
 <launch4jConfig>
   <dontWrapJar>false</dontWrapJar>
   <headerType>gui</headerType>
-  <jar>C:\Users\aoyag\Desktop\Codes\Java\clicker\clicker.jar</jar>
+  <jar>C:\Users\matth\workspace\clicker_java\clicker_java.jar</jar>
   <outfile>codeclicker.exe</outfile>
   <errTitle></errTitle>
   <cmdLine></cmdLine>
@@ -13,7 +13,7 @@
   <stayAlive>false</stayAlive>
   <restartOnCrash>false</restartOnCrash>
   <manifest></manifest>
-  <icon>C:\Users\aoyag\Desktop\Codes\Java\clicker\assets\icone.ico</icon>
+  <icon>C:\Users\matth\workspace\clicker_java\assets\icone.ico</icon>
   <jre>
     <path>C:\Program Files\Eclipse Adoptium\jdk-11.0.13.8-hotspot</path>
     <bundledJre64Bit>false</bundledJre64Bit>
