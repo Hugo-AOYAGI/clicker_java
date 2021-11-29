@@ -24,6 +24,8 @@ public class VirusPopup {
     static int damage = 0;
 
     static GC gc;
+    
+    static boolean virusActive = false;
 
     public VirusPopup(Display _display, Shell _parent_shell) {
         parent_shell = _parent_shell;
@@ -37,9 +39,12 @@ public class VirusPopup {
 
         pop_shell.addListener(SWT.Close, new Listener() {
             public void handleEvent(Event e) {
-                if (damage != 9) {
+                if (damage != 9) { 
                     e.doit = false;
+                } else {
+                    virusActive = false;
                 }
+                
                 damage = 0; 
             }
         });
@@ -66,6 +71,22 @@ public class VirusPopup {
         bodylabel.setText(bodytext);
         bodylabel.setSize(600, 120);
         bodylabel.setFont(font);
+    }
+
+    public static void loseMoney() {
+        System.out.println(Math.floor(App.score * 0.95));
+        App.score = (long) Math.max(0, Math.floor(App.score * 0.98));
+        Display.getDefault().syncExec(new Runnable() {
+            public void run() {
+                App.sidemenu.updateScore(App.score);
+            }
+        });
+        if (virusActive) {
+            App.setTimeout(() -> {
+                loseMoney();
+            }, 750);
+        }
+        
     }
 
     public void setUpGame() {
@@ -107,6 +128,9 @@ public class VirusPopup {
 
     public void open(Runnable callOnClose) {
         pop_shell.open();
+
+        virusActive = true;
+        loseMoney();
 
         while(!pop_shell.isDisposed()) {
             if (!display.readAndDispatch()) {
