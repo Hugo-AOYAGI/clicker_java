@@ -74,7 +74,7 @@ public class VirusPopup {
     }
 
     public static void loseMoney() {
-        System.out.println(Math.floor(App.score * 0.95));
+
         App.score = (long) Math.max(0, Math.floor(App.score * 0.98));
         Display.getDefault().syncExec(new Runnable() {
             public void run() {

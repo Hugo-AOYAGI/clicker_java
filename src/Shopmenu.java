@@ -19,9 +19,11 @@ public class Shopmenu {
     static Shell pop_shell; 
 
 
-    public Shopmenu(Display _display, Shell _parent_shell, String _description, int _price, String _name, Runnable _callback) {
+    public Shopmenu(Display _display, Shell _parent_shell, String _description, int _index, String _name, Runnable _callback, int type) {
         description = _description;
-        price = _price;
+        if (type ==0) {price = App.powerups.prices[_index];}
+        else {price = App.factories.prices[_index];};
+        
         name = _name;
         parent_shell = _parent_shell;
         display = _display;

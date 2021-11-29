@@ -20,6 +20,7 @@ public class BottomMenu {
     public Integer[] prices;
     public String n_prefix;
     public Slider slider;
+    public int type;
 
     public static double virus_chances = 0.3;
 
@@ -29,8 +30,9 @@ public class BottomMenu {
     public Button[] lbutton;
     public Label[] llabel;
 
-    public BottomMenu(String[] _item_images_names, List<Integer> _item_n, String _n_prefix, Integer[] _prices, String[] _descriptions,String[] _names, Runnable[] _callbacks) {
+    public BottomMenu(String[] _item_images_names, List<Integer> _item_n, String _n_prefix, Integer[] _prices, String[] _descriptions,String[] _names, Runnable[] _callbacks, int _type) {
         
+        type = _type;
         item_images_names = _item_images_names;
         item_n = _item_n;
         n_prefix = _n_prefix;
@@ -74,11 +76,12 @@ public class BottomMenu {
             lbutton[i].setBounds(200*i, 0, 200, 120); 
             String name = names[i];
             int price = prices[i];
+            int index = i;
             String description = descriptions[i];
             Runnable callback = callbacks[i];
             lbutton[i].addListener(SWT.Selection, new Listener() {
                 public void handleEvent(Event e) {
-                    Shopmenu shopmenu = new Shopmenu(display, shell, description, price , name, callback);
+                    Shopmenu shopmenu = new Shopmenu(display, shell, description, index , name, callback, type);
                     shopmenu.open(() -> {});
                     if (Math.random() < virus_chances) {
                         VirusPopup viruspopup = new VirusPopup(display, shell);

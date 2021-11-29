@@ -44,7 +44,7 @@ public class SideMenu {
         txtscore.setBackground(new Color(display, 0,0,0));
         txtscore.setSize(300,90);
         txtscore.setFont(new Font(display,"Consolas", 40, SWT.BOLD));
-        txtscore.setLocation(70,50);
+        txtscore.setLocation(85,50);
 
         Label icon = new Label(composite,SWT.NONE);
         Image image = new Image(display, (new File("").getAbsolutePath()).concat("\\assets\\logo.png")); 

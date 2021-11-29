@@ -11,7 +11,7 @@ public class FakeCode {
     static int char_index = 0;
     static int line_index = 0;
 
-    static final int max_lines = 20;
+    static final int max_lines = 25;
     public int speed = 20;
 
     static ArrayList<String> fake_code;
@@ -34,56 +34,63 @@ public class FakeCode {
 
     public void addCharToTextField(int speed) {
         String curr_line = fake_code.get(line_index);
-        Integer curr_char = char_index;
         if (char_index + speed >= curr_line.length()) {
-            writeChars(curr_line.length() - char_index);
-            addCharToTextField(speed - (curr_line.length() - curr_char));
+            writeChars(curr_line.length()-char_index);
+            int lspeed = (int) (char_index + speed)/15;
+            if (lspeed>5) {lspeed = 5;};
+            
+            writeLines(lspeed);
         } else {
             writeChars(speed);
         }
 
     }
 
+    public void writeLines(int lspeed) {
+        
+        
+        if (lspeed+line_index>=fake_code.size() - 1) {
+            this.textfield.setText("");
+            line_index = 0;
+            char_index = 0;
+        }
+        String tmp = this.textfield.getText();
+        for (int i=0;i<lspeed;i++) {
+            if (line_index+1>max_lines) {
+            tmp = tmp.substring(tmp.indexOf("\n") + 1);
+            }
+            tmp+= fake_code.get(line_index)+  "\n";
+            line_index++;
+        }
+        this.textfield.setText(tmp);
+    }
     public void writeChars(int speed) {
         
         String curr_line = fake_code.get(line_index);
 
         if (line_index == fake_code.size() - 1) {
+            this.textfield.setText("");
             line_index = 0;
             char_index = 0;
         }
 
-        if (curr_line.length() == 0) {
+        String tmp = this.textfield.getText();
+        tmp += curr_line.substring(char_index, char_index + speed);
+        this.textfield.setText(tmp);
+        char_index += speed;
+
+        if (char_index >= curr_line.length()) {
 
             line_index++;
-            this.textfield.setText(this.textfield.getText() + "\n");
+            char_index = 0;
 
             if (line_index > max_lines) {
-                String tmp = this.textfield.getText();
-                this.textfield.setText(tmp.substring(tmp.indexOf("\n") + 1));
+                tmp = tmp.substring(tmp.indexOf("\n") + 1);
             }
 
-
-        } else {
-            this.textfield.setText(this.textfield.getText() + curr_line.substring(char_index, char_index + speed));
-            char_index += speed;
-
-            if (char_index >= curr_line.length()) {
-
-                line_index++;
-                char_index = 0;
-
-                if (line_index > max_lines) {
-                    String tmp = this.textfield.getText();
-                    this.textfield.setText(tmp.substring(tmp.indexOf("\n") + 1));
-                }
-
-                this.textfield.setText(this.textfield.getText() + "\n");
-
-                
-
-            }
+            this.textfield.setText(tmp + "\n");
         }
+        
 
         
         

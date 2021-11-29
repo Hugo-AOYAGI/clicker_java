@@ -9,6 +9,7 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.regex.PatternSyntaxException;
 import java.util.stream.Collectors;
 
 import org.eclipse.swt.*;
@@ -25,17 +26,17 @@ public class App {
     static int factories_cps = 0;
     public static SideMenu sidemenu;
     static FakeCode fakecode;
-    static BottomMenu factories;
-    static BottomMenu powerups;
+    public static BottomMenu factories;
+    public static BottomMenu powerups;
     static boolean virusActive = false;
 
     
 
     static List<Integer> factories_n = Arrays.asList(0, 0, 0, 0, 0, 0, 0, 0, 0);
-    static Integer[] factories_prod = {0, 1, 2, 10, 30, 100, 500, 1000, 10000};
+    static Integer[] factories_prod = {0, 1, 5, 25, 75, 500, 7000, 60000, 200000};
 
     static String[] factories_names = {"urbutt", "factyou", "factdev", "facttea", "factcat", "factcom", "redditor", "facthac", "factai"};
-    static Integer[] factories_prices = {10,100,500,1000,2000,10000,100000,100000000,100000000};
+    static Integer[] factories_prices = {10,100,300,900,2000,10000,100000,777777,3000000};
     static String[] factories_rnames = {"Ur Butt", "A clone of you", "A simple dev", "A team of devs", "My cat", "A Software company", "A redditor", "A Master Hacker", "A next gen AI"};
     static String[] factories_descriptions = {"Stop using your butt to write code.\nProduces 0 chars per seconds.", "A clone of you that writes code as\nfast as you do (slowly).\nProduces 1 char per seconds.", "The dev is more efficient.\nProduces 2 chars per seconds.", "A Team of 3 devs, but writes more \ncode than the sum of its parts.\nProduces 10 chars per seconds.", "My cat is better than a team of\ndevs.\nProduces 30 chars per seconds.", "The software company produces 100\nchars per seconds.", "The redditor just copies code from\nsubreddits and stackoverflow.\nProduces 500 chars per seconds.", "The master hacker produces 1000\nchars per seconds.", "The AI is taking all the devs jobs\nthanks to its magic SSD.\nProduces 10000 chars per seconds."};
     static Runnable[] factories_callbacks = {() -> {addFactory(0, 10, 0);}, () -> {addFactory(1, 100, 1);}, () -> {addFactory(2, 500, 2);}, () -> {addFactory(8, 1000, 3);}, () -> {addFactory(10, 2000, 4);}, () -> {addFactory(100, 10000, 5);}, () -> {addFactory(500, 100000, 6);}, () -> {addFactory(1000, 100000000, 7);}, () -> {addFactory(100000, 1000000000, 8);}};
@@ -52,12 +53,16 @@ public class App {
     static Shell shell;
 
     public static void addCursor() {
-        if (100 <= score) {
+        int pricecursor = 100*(1+power_up_n.get(0));
+
+        if (pricecursor <= score) {
             mousemodifier++;
-            score -= 100;
+            score -= pricecursor;
             sidemenu.updateScore(score);
             power_up_n.set(0, power_up_n.get(0) + 1);
             powerups.updateLabel(power_up_n.get(0), 0);
+            powerups.prices[0] =100*(1+power_up_n.get(0));
+                    
         } else {
             MessageBox message_box = new MessageBox(shell, SWT.CLOSE | SWT.ICON_WARNING);
             message_box.setText("Shop");
@@ -67,12 +72,14 @@ public class App {
     } 
 
     public static void addAntiVirus() {
-        if (1000 <= score) {
+        int priceantiv = 1000*(1+power_up_n.get(1));
+        if (priceantiv <= score) {
             BottomMenu.virus_chances *= 0.8;
-            score -= 1000;
+            score -= priceantiv;
             sidemenu.updateScore(score);
             power_up_n.set(2, power_up_n.get(2) + 1);
             powerups.updateLabel(power_up_n.get(2), 2);
+            powerups.prices[1] = 1000*(1+power_up_n.get(1));
         } else {
             MessageBox message_box = new MessageBox(shell, SWT.CLOSE | SWT.ICON_WARNING);
             message_box.setText("Shop");
@@ -83,12 +90,14 @@ public class App {
 
 
     public static void factoriesModify() {
-        if (1000 <= score) {
+        int pricefacto = 1000*(1+ (int) 0.25*power_up_n.get(2));
+        if (pricefacto <= score) {
             factories_modifier += 0.1;
-            score -= 1000;
+            score -= pricefacto;
             sidemenu.updateScore(score);
             power_up_n.set(1, power_up_n.get(1) + 1);
             powerups.updateLabel(power_up_n.get(1), 1);
+            powerups.prices[2] = 1000*(1+ (int) 0.25*power_up_n.get(2));
         } else {
             MessageBox message_box = new MessageBox(shell, SWT.CLOSE | SWT.ICON_WARNING);
             message_box.setText("Shop");
@@ -134,18 +143,37 @@ public class App {
         }
         Display.getDefault().syncExec(new Runnable() {
             public void run() {
-                if (factories_cps < 100) {
+                if (factories_cps < 20) {
             
                     int delay = 1000/factories_cps;
-                    score += (long) ((factories_cps / (1000 / delay))*factories_modifier);
-                    fakecode.addCharToTextField((int) ((factories_cps / (1000 / delay))*factories_modifier));
+                    score += (long) factories_modifier;
                     sidemenu.updateScore(score);
                     setTimeout(() -> {factoriesLoop();}, delay);
-                } else {
-                    score += (long) ((factories_cps / 100)*factories_modifier);
-                    fakecode.addCharToTextField((int) ((factories_cps / 100)*factories_modifier));
+                } 
+                else {
+                    score += (long) ((factories_cps / 10)*factories_modifier);
                     sidemenu.updateScore(score);
-                    setTimeout(() -> {factoriesLoop();}, 10);
+                    setTimeout(() -> {factoriesLoop();}, 100);
+                }
+            }
+        });
+    }
+        
+     public static void fakecodeLoop() {
+        if (factories_cps == 0 || !gameStarted) {
+            setTimeout(() -> {fakecodeLoop();}, 1000);
+            return;
+        }
+        Display.getDefault().syncExec(new Runnable() {
+            public void run() {
+                if (factories_cps < 20) {
+                    int delay = 1000/factories_cps;
+                    fakecode.addCharToTextField((int) (factories_modifier));
+                    setTimeout(() -> {fakecodeLoop();}, delay);
+                } 
+                else {
+                    fakecode.addCharToTextField((int) ((factories_cps / 10)*factories_modifier));
+                    setTimeout(() -> {fakecodeLoop();}, 100);
                 }
             }
         });
@@ -171,6 +199,11 @@ public class App {
             factories_n = Arrays.asList(user_data.get(0).trim().split(",")).stream().map(i -> Integer.parseInt(i)).collect(Collectors.toList());
             power_up_n = Arrays.asList(user_data.get(1).trim().split(",")).stream().map(i -> Integer.parseInt(i)).collect(Collectors.toList());
             score = Integer.parseInt(user_data.get(2).trim());
+
+            power_up_prices[0] = 100*(1+power_up_n.get(0));
+            power_up_prices[1] = 1000*(1+ (int) 0.25*power_up_n.get(1));
+            power_up_prices[2] = 1000*(1+power_up_n.get(2));
+ 
             mousemodifier = Integer.parseInt(user_data.get(3).trim());
             factories_modifier = Double.parseDouble(user_data.get(4).trim());
             BottomMenu.virus_chances = Double.parseDouble(user_data.get(5).trim());
@@ -209,11 +242,11 @@ public class App {
 
         
 
-        powerups = new BottomMenu(power_up_names, power_up_n, "lvl", power_up_prices,power_up_descriptions,power_up_rnames, power_up_callbacks );
+        powerups = new BottomMenu(power_up_names, power_up_n, "lvl", power_up_prices,power_up_descriptions,power_up_rnames, power_up_callbacks,0 );
         powerups.show(display, shell);
 
       
-        factories = new BottomMenu(factories_names, factories_n, "x",factories_prices,factories_descriptions,factories_rnames, factories_callbacks);
+        factories = new BottomMenu(factories_names, factories_n, "x",factories_prices,factories_descriptions,factories_rnames, factories_callbacks,1);
         factories.show(display, shell);
 
         
@@ -248,6 +281,7 @@ public class App {
         });
 
         factoriesLoop();
+        fakecodeLoop();
 
         shell.addListener(SWT.Close, new Listener() {
             public void handleEvent(Event e) {
