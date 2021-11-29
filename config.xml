@@ -13,7 +13,7 @@
   <stayAlive>false</stayAlive>
   <restartOnCrash>false</restartOnCrash>
   <manifest></manifest>
-  <icon>C:\Users\aoyag\Desktop\Codes\Java\clicker\assets\icon.ico</icon>
+  <icon>C:\Users\aoyag\Desktop\Codes\Java\clicker\assets\icone.ico</icon>
   <jre>
     <path>C:\Program Files\Eclipse Adoptium\jdk-11.0.13.8-hotspot</path>
     <bundledJre64Bit>false</bundledJre64Bit>
