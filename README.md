@@ -1,20 +1,7 @@
-## Getting Started
+# Code Clicker
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
+Code clicker is a clicker type game themed around developers. The goal is to write as many lines of code as possible.
 
-## Folder Structure
+You can buy factories that help you achieve this goal as well as powerups. These will cost you lines of code.
 
-The workspace contains two folders by default, where:
-
-- `src`: the folder to maintain sources
-- `lib`: the folder to maintain dependencies
-
-Meanwhile, the compiled output files will be generated in the `bin` folder by default.
-
-> If you want to customize the folder structure, open `.vscode/settings.json` and update the related settings there.
-
-## Dependency Management
-
-The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
-
-Test
+Care for the many viruses you might encounter while shopping, they will set you back weeks of work.
